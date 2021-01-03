@@ -1,0 +1,42 @@
+{
+  "name": "jizhi-react",
+  "version": "2.3.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --mode production && node build.js",
+    "start": "webpack-dev-server --mode development --open --watch",
+    "test": "jest",
+    "lint": "eslint --cache --format codeframe --ext .mjs,.jsx,.js src",
+    "lint:fix": "yarn lint --fix"
+  },
+  "dependencies": {
+    "archiver": "^3.1.1",
+    "chalk": "^4.0.0",
+    "evergreen-ui": "^4.19.1",
+    "handlebars": "^4.7.6",
+    "node-sass": "^4.12.0",
+    "prop-types": "^15",
+    "react": "^16",
+    "react-dom": "^16",
+    "react-hot-loader": "^4",
+    "react-p5-wrapper": "^0.0.4",
+    "retina-dom-to-image": "^2.5.6"
+  },
+  "devDependencies": {
+    "@neutrinojs/copy": "^9.0.0-rc.0",
+    "@neutrinojs/jest": "^9.0.0-rc.0",
+    "@neutrinojs/react": "^9.0.0-rc.0",
+    "@neutrinojs/standardjs": "^9.0.0-rc.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.0",
+    "eslint": "^6.8.0",
+    "jest": "^25",
+    "neutrino": "^9.0.0-rc.0",
+    "sass-loader": "^8.0.0",
+    "webpack": "^4",
+    "webpack-cli": "^3",
+    "webpack-dev-server": "^3"
+  }
+}
