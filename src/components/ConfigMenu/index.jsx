@@ -16,6 +16,8 @@ class ConfigMenu extends Component {
 
   handleOnClose = () => this.setState({ isOpen: false })
 
+  handleAddSite = () => { alert('添加网址') }
+
   render () {
     const {
       isPlaying,
@@ -32,7 +34,9 @@ class ConfigMenu extends Component {
       onBgOptionChange,
       engineOption,
       onEngineOptionChange,
-      onCustomBtn
+      onCustomBtn,
+      onSiteTitleInput,
+      onSiteAddrInput
     } = this.props
 
     return (
@@ -127,14 +131,14 @@ class ConfigMenu extends Component {
 
               <Menu.Divider />
               <Menu.Group title='自定义'>
-                <Menu.Item onSelect={onCustomBtn}>
-                  <TextInput id='siteTitle' name='siteTitle' placeholder='网页标题' />
+                <Menu.Item>
+                  <TextInput id='siteTitle' onChange={onSiteTitleInput} name='siteTitle' placeholder='网页标题' />
                 </Menu.Item>
-                <Menu.Item marginTop={8} onSelect={onCustomBtn}>
-                  <TextInput id='siteAddr' name='siteAddr' placeholder='链接地址' />
+                <Menu.Item marginTop={8}>
+                  <TextInput id='siteAddr' onChange={onSiteAddrInput} name='siteAddr' placeholder='输入完整URL' />
                 </Menu.Item>
-                <Menu.Item marginTop={8} onSelect={onCustomBtn}>
-                  <Button marginRight={0}>添加</Button>
+                <Menu.Item marginTop={8}>
+                  <Button marginRight={0} onClick={onCustomBtn}>添加</Button>
                 </Menu.Item>
               </Menu.Group>
 
@@ -173,7 +177,9 @@ ConfigMenu.propTypes = {
   onBgOptionChange: PropTypes.func,
   engineOption: PropTypes.string,
   onEngineOptionChange: PropTypes.func,
-  onCustomBtn: PropTypes.func
+  onCustomBtn: PropTypes.func,
+  onSiteTitleInput: PropTypes.func,
+  onSiteAddrInput: PropTypes.func
 }
 
 export default ConfigMenu

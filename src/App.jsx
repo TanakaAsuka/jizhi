@@ -113,7 +113,17 @@ class App extends Component {
 
   handleBlur = () => this.setState({ focused: false })
   // 自定义网址
-  handleCustomBtn = () => { console.log('aaaa') }
+  customSite = []
+
+  tempObj = {}
+  handleTitleInput = (e) => { this.tempObj.title = e.target.value }
+
+  handleAddrInput = (e) => { this.tempObj.addr = e.target.value }
+
+  handleCustomBtn = () => {
+    this.customSite.push(Object.assign({}, this.tempObj))
+    console.log(this.customSite)
+  }
 
   render () {
     const { verses, isVerticalVerses, isPlaying, showSearchBarChecked, defaultPlayChecked, colorStayChecked, selected, errMessage, engineOption, value, focused } = this.state
@@ -146,6 +156,8 @@ class App extends Component {
           engineOption={engineOption}
           onEngineOptionChange={this.handleEngineOptionChange}
           onCustomBtn={this.handleCustomBtn}
+          onSiteTitleInput={this.handleTitleInput}
+          onSiteAddrInput={this.handleAddrInput}
         >
           {errMessage &&
             <div style={{ height: 30 }}>
