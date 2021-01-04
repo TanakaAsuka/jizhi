@@ -5,8 +5,7 @@
   font-family: 'FZXiJinLJW';
   position: absolute;
   transform: translate(-50%, -50%);
-  left: 65vw;
-  bottom:15vh;
+  left: 85vw;
   text-align: center;
   opacity: .8;
   word-break: keep-all;
@@ -40,7 +39,7 @@
 .verses.vertical {
   text-align: left;
   top: 50vh;
-  transform: translate(-50%, -80%);
+  transform: translate(-50%, -15%);
   writing-mode: vertical-rl;
   @include fadein(verticalFadein);
 

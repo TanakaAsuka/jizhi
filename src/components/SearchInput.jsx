@@ -15,7 +15,7 @@ class SearchInput extends Component {
           onChange={onChange}
           name={engineOption.split('.')[1] === 'baidu' ? 'wd' : 'q'}
           autoComplete='off'
-          placeholder='你今天想搜索什么?'
+          placeholder='今天吃点什么'
         />
       </form>
     )

@@ -6,6 +6,7 @@ import blobs from './sketchs/blobs'
 import Verses from './components/Verses'
 import ConfigMenu from './components/ConfigMenu'
 import SearchInput from './components/SearchInput'
+import SiteLabel from './components/SiteLabel'
 import { saveBackground } from './utils'
 import Storager from './utils/storager'
 import { InlineAlert } from 'evergreen-ui'
@@ -26,7 +27,7 @@ class App extends Component {
       defaultPlayChecked: true,
       colorStayChecked: false,
       verses: DEFAULT_SHICI,
-      versesLayout: HORIZONTAL,
+      versesLayout: VERTICAL,
       errMessage: '',
       engineOption: GOOGLE_SEARCH,
       value: '',
@@ -111,6 +112,8 @@ class App extends Component {
   handleFocus = () => this.setState({ focused: true })
 
   handleBlur = () => this.setState({ focused: false })
+  // 自定义网址
+  handleCustomBtn = () => { console.log('aaaa') }
 
   render () {
     const { verses, isVerticalVerses, isPlaying, showSearchBarChecked, defaultPlayChecked, colorStayChecked, selected, errMessage, engineOption, value, focused } = this.state
@@ -125,6 +128,7 @@ class App extends Component {
           versesLayout={isVerticalVerses ? VERTICAL : HORIZONTAL}
           engineOption={engineOption}
         />
+        <SiteLabel />
         <P5Wrapper sketch={sketches[selected]} isPlaying={isPlaying} />
         <ConfigMenu
           onPlayPauseSelect={this.handlePlayPauseSelect}
@@ -141,6 +145,7 @@ class App extends Component {
           onBgOptionChange={this.handleBgOptionChange}
           engineOption={engineOption}
           onEngineOptionChange={this.handleEngineOptionChange}
+          onCustomBtn={this.handleCustomBtn}
         >
           {errMessage &&
             <div style={{ height: 30 }}>

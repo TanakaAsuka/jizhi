@@ -14,7 +14,7 @@ describe('ConfigMenu', () => {
     onColorStayChange: jest.fn(),
     selected: 'test',
     onBgOptionChange: jest.fn(),
-    isVerticalVerses: true,
+    isVerticalVerses:   false,
     onVersesLayoutChange: jest.fn()
   }
 

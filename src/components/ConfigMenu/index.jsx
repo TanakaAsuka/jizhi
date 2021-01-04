@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Popover, Menu, Position, Switch, Icon, SegmentedControl } from 'evergreen-ui'
+import { Popover, Menu, Position, Switch, Icon, SegmentedControl, TextInput, Button } from 'evergreen-ui'
 import PropTypes from 'prop-types'
 import Legal from './Legal'
 import SaveBgMenuItem from './SaveBgMenuItem'
@@ -31,7 +31,8 @@ class ConfigMenu extends Component {
       selected,
       onBgOptionChange,
       engineOption,
-      onEngineOptionChange
+      onEngineOptionChange,
+      onCustomBtn
     } = this.props
 
     return (
@@ -125,6 +126,19 @@ class ConfigMenu extends Component {
               </Menu.Group>
 
               <Menu.Divider />
+              <Menu.Group title='自定义'>
+                <Menu.Item onSelect={onCustomBtn}>
+                  <TextInput id='siteTitle' name='siteTitle' placeholder='网页标题' />
+                </Menu.Item>
+                <Menu.Item marginTop={8} onSelect={onCustomBtn}>
+                  <TextInput id='siteAddr' name='siteAddr' placeholder='链接地址' />
+                </Menu.Item>
+                <Menu.Item marginTop={8} onSelect={onCustomBtn}>
+                  <Button marginRight={0}>添加</Button>
+                </Menu.Item>
+              </Menu.Group>
+
+              <Menu.Divider />
               <Legal />
               {this.props.children}
             </Menu>
@@ -158,7 +172,8 @@ ConfigMenu.propTypes = {
   selected: PropTypes.string,
   onBgOptionChange: PropTypes.func,
   engineOption: PropTypes.string,
-  onEngineOptionChange: PropTypes.func
+  onEngineOptionChange: PropTypes.func,
+  onCustomBtn: PropTypes.func
 }
 
 export default ConfigMenu
