@@ -34,6 +34,8 @@
 .verses.horizontal {
   transition: top 500ms ease-in-out;
   @include fadein(horizontalFadein);
+  top: 85vh;
+  left: 50vw
 }
 
 .verses.vertical {

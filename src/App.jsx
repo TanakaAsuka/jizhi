@@ -23,7 +23,7 @@ class App extends Component {
 
     this.state = {
       isPlaying: true,
-      showSearchBarChecked: false,
+      showSearchBarChecked: true,
       defaultPlayChecked: true,
       colorStayChecked: false,
       verses: DEFAULT_SHICI,
@@ -32,7 +32,7 @@ class App extends Component {
       engineOption: GOOGLE_SEARCH,
       value: '',
       focused: false,
-      customSite: []//自定义网址标题
+      customSite: [] // 自定义网址标题
     }
   }
 
@@ -46,16 +46,17 @@ class App extends Component {
     })
     Storager.get('siteArr', res => {
       // 如果localstorage有自定义站点标题数组
-      if (res !== 'undefined') {
+      console.log('getsiteArr:', res)
+      if (res.siteArr !== undefined) {
         this.state.customSite = res.siteArr
       }
     })
     Storager.get(['verses', 'versesLayout', 'selected', 'colorStayChecked', 'defaultPlayChecked', 'engineOption', 'showSearchBarChecked'], res => {
       this.setState({
-        showSearchBarChecked: !!res.showSearchBarChecked,
+        showSearchBarChecked: res.showSearchBarChecked !== false,
         colorStayChecked: !!res.colorStayChecked,
         defaultPlayChecked: res.defaultPlayChecked !== false,
-        isVerticalVerses: res.versesLayout === VERTICAL,
+        isVerticalVerses: res.versesLayout !== HORIZONTAL,
         isPlaying: res.defaultPlayChecked !== false,
         verses: res.verses || DEFAULT_SHICI,
         selected: res.selected || WAVES,
@@ -131,6 +132,20 @@ class App extends Component {
     Storager.set({ siteArr: this.state.customSite })
   }
 
+  handleCustomBtnDelete = () => {
+    const title = this.tempObj.title
+    if (title) {
+      // 删除站点对象
+      Storager.remove(title)
+      // 删除站点标题数组
+      const index = this.state.customSite.indexOf(title)
+      if (index !== -1) {
+        this.state.customSite.splice(index, 1)
+        Storager.set({ siteArr: this.state.customSite })
+      }
+    }
+  }
+
   render () {
     const { verses, isVerticalVerses, isPlaying, showSearchBarChecked, defaultPlayChecked, colorStayChecked, selected, errMessage, engineOption, value, focused } = this.state
     const sketches = { blobs, waves }
@@ -162,6 +177,7 @@ class App extends Component {
           engineOption={engineOption}
           onEngineOptionChange={this.handleEngineOptionChange}
           onCustomBtn={this.handleCustomBtn}
+          onCustomBtnDelete={this.handleCustomBtnDelete}
           onSiteTitleInput={this.handleTitleInput}
           onSiteAddrInput={this.handleAddrInput}
         >

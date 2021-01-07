@@ -20,7 +20,7 @@ module.exports = {
     standardjs(),
     react({
       html: {
-        title: 'New Tab',
+        title: '新标签',
       },
       style: {
         test: /\.(css|sass|scss)$/,

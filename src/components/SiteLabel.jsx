@@ -10,11 +10,16 @@ class SiteLabel extends Component {
   }
 
   render () {
+    Storager.get('siteArr', arr => {
+      if (arr.siteArr !== undefined) {
+        this.state.titleArr = arr.siteArr
+      }
+    })
+    Storager.get(this.state.titleArr, res => {
+      this.setState({ siteArr: res })
+    })
     let siteList = []
-    // 获取自定义标题数组
-    Storager.get('siteArr', arr => { this.state.titleArr = arr.siteArr })
     // 根据自定义标题数组获取网址对象
-    Storager.get(this.state.titleArr, res => { this.setState({ siteArr: res }) })
     siteList = Object.keys(this.state.siteArr).map(title => <Tab is='a' key={this.state.siteArr[title]} href={this.state.siteArr[title]}>{title}</Tab>)
     return (
       <Tablist className='siteLabel' width={525}>

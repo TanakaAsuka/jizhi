@@ -42,6 +42,7 @@ class ConfigMenu extends Component {
       engineOption,
       onEngineOptionChange,
       onCustomBtn,
+      onCustomBtnDelete,
       onSiteTitleInput,
       onSiteAddrInput
     } = this.props
@@ -146,6 +147,7 @@ class ConfigMenu extends Component {
                 </Menu.Item>
                 <Menu.Item marginTop={8}>
                   <Button marginRight={0} onClick={() => { onCustomBtn(); this.handleAddSite() }}>添加</Button>
+                  <Button marginLeft={5} onClick={() => { onCustomBtnDelete() }}>删除</Button>
                 </Menu.Item>
               </Menu.Group>
 
@@ -185,6 +187,7 @@ ConfigMenu.propTypes = {
   engineOption: PropTypes.string,
   onEngineOptionChange: PropTypes.func,
   onCustomBtn: PropTypes.func,
+  onCustomBtnDelete: PropTypes.func,
   onSiteTitleInput: PropTypes.func,
   onSiteAddrInput: PropTypes.func
 }
