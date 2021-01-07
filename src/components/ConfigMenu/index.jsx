@@ -8,7 +8,10 @@ class ConfigMenu extends Component {
   constructor (props) {
     super()
     this.state = {
-      isOpen: false
+      isOpen: false,
+      isClear: false,
+      titleValue: '',
+      addrValue: ''
     }
   }
 
@@ -16,7 +19,11 @@ class ConfigMenu extends Component {
 
   handleOnClose = () => this.setState({ isOpen: false })
 
-  handleAddSite = () => { alert('添加网址') }
+  handleAddSite = () => this.setState({ isClear: true })
+
+  handleTitleValue = (e) => { this.setState({ titleValue: e.target.value }); this.setState({ isClear: false }) }
+
+  handleAddrValue = (e) => { this.setState({ addrValue: e.target.value }); this.setState({ isClear: false }) }
 
   render () {
     const {
@@ -132,13 +139,13 @@ class ConfigMenu extends Component {
               <Menu.Divider />
               <Menu.Group title='自定义'>
                 <Menu.Item>
-                  <TextInput id='siteTitle' onChange={onSiteTitleInput} name='siteTitle' placeholder='网页标题' />
+                  <TextInput id='siteTitle' value={this.state.isClear ? '' : this.state.titleValue} onChange={(e) => { onSiteTitleInput(e); this.handleTitleValue(e) }} name='siteTitle' placeholder='网页标题' />
                 </Menu.Item>
                 <Menu.Item marginTop={8}>
-                  <TextInput id='siteAddr' onChange={onSiteAddrInput} name='siteAddr' placeholder='输入完整URL' />
+                  <TextInput id='siteAddr' value={this.state.isClear ? '' : this.state.addrValue} onChange={(e) => { onSiteAddrInput(e); this.handleAddrValue(e) }} name='siteAddr' placeholder='输入完整URL' />
                 </Menu.Item>
                 <Menu.Item marginTop={8}>
-                  <Button marginRight={0} onClick={onCustomBtn}>添加</Button>
+                  <Button marginRight={0} onClick={() => { onCustomBtn(); this.handleAddSite() }}>添加</Button>
                 </Menu.Item>
               </Menu.Group>
 

@@ -1,19 +1,24 @@
 import React, { Component } from 'react'
 import { Tab, Tablist } from 'evergreen-ui'
+import Storager from '../utils/storager'
 // import PropTypes from 'prop-types'
 
 class SiteLabel extends Component {
+  constructor (props) {
+    super(props)
+    this.state = { siteArr: [], titleArr: [] }
+  }
+
   render () {
-    // const { engineOption, value, focused, onFocus, onBlur, onChange } = this.props
+    let siteList = []
+    // 获取自定义标题数组
+    Storager.get('siteArr', arr => { this.state.titleArr = arr.siteArr })
+    // 根据自定义标题数组获取网址对象
+    Storager.get(this.state.titleArr, res => { this.setState({ siteArr: res }) })
+    siteList = Object.keys(this.state.siteArr).map(title => <Tab is='a' key={this.state.siteArr[title]} href={this.state.siteArr[title]}>{title}</Tab>)
     return (
       <Tablist className='siteLabel' width={525}>
-        <Tab is='a' href='https://www.zhihu.com'>知乎知乎</Tab>
-        <Tab is='a' href='https://www.taobao.com'>淘宝淘宝</Tab>
-        <Tab is='a' href='https://www.zhihu.com'>知乎知乎</Tab>
-        <Tab is='a' href='https://www.taobao.com'>淘宝淘宝</Tab>
-        <Tab is='a' href='https://www.zhihu.com'>知乎知乎</Tab>
-        <Tab is='a' href='https://www.taobao.com'>淘宝淘宝</Tab>
-        <Tab is='a' href='https://www.zhihu.com'>知乎知乎</Tab>
+        {siteList}
       </Tablist>
     )
   }

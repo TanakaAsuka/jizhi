@@ -22,11 +22,11 @@
     padding-left: 35px;
     height: 40px;
     border-bottom: 2px $dark-grey solid;
-    opacity: 0;
+    opacity: .4;
 
-    &:hover {
-      opacity: .4;
-    }
+    // &:hover {
+    //   opacity: .4;
+    // }
     &.active {
       opacity: .8;
     }

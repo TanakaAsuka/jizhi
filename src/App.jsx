@@ -31,7 +31,8 @@ class App extends Component {
       errMessage: '',
       engineOption: GOOGLE_SEARCH,
       value: '',
-      focused: false
+      focused: false,
+      customSite: []//自定义网址标题
     }
   }
 
@@ -43,7 +44,12 @@ class App extends Component {
       const localShici = DEFAULT_SHICI_LIST[Math.floor(Math.random() * DEFAULT_SHICI_LIST.length)]
       Storager.set({ verses: localShici })
     })
-
+    Storager.get('siteArr', res => {
+      // 如果localstorage有自定义站点标题数组
+      if (res !== 'undefined') {
+        this.state.customSite = res.siteArr
+      }
+    })
     Storager.get(['verses', 'versesLayout', 'selected', 'colorStayChecked', 'defaultPlayChecked', 'engineOption', 'showSearchBarChecked'], res => {
       this.setState({
         showSearchBarChecked: !!res.showSearchBarChecked,
@@ -112,17 +118,17 @@ class App extends Component {
   handleFocus = () => this.setState({ focused: true })
 
   handleBlur = () => this.setState({ focused: false })
-  // 自定义网址
-  customSite = []
-
+  // 自定义网址操作
   tempObj = {}
+  // 设置标题
   handleTitleInput = (e) => { this.tempObj.title = e.target.value }
-
+  // 设置地址
   handleAddrInput = (e) => { this.tempObj.addr = e.target.value }
-
+  // 添加网址
   handleCustomBtn = () => {
-    this.customSite.push(Object.assign({}, this.tempObj))
-    console.log(this.customSite)
+    this.state.customSite.push(this.tempObj.title)
+    Storager.set({ [this.tempObj.title]: this.tempObj.addr })
+    Storager.set({ siteArr: this.state.customSite })
   }
 
   render () {

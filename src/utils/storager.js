@@ -1,22 +1,36 @@
 const storageLocal = {
   name: 'localStorage',
   set: (obj, callback) => {
-    const key = Object.keys(obj)[0]
-    const output = {}
-    output[key] = obj[key]
-    const value = JSON.stringify(output)
-    localStorage.setItem(key, value)
+    if (Array.isArray(obj)) {
+      obj.forEach((item, index) => {
+        localStorage.setItem('site' + index, JSON.stringify(item))
+      })
+    } else {
+      const key = Object.keys(obj)[0]
+      const output = {}
+      output[key] = obj[key]
+      const value = JSON.stringify(output)
+      localStorage.setItem(key, value)
+    }
     if (callback) callback()
   },
-  get: (keys, callback) => {
-    let resOutput = {}
-    keys.forEach(key => {
-      let result = localStorage.getItem(key)
-      result = JSON.parse(result) || {}
-      resOutput = { ...resOutput, ...result }
-    })
-
-    if (callback) callback(resOutput)
+  get: (key, callback) => {
+    if (Array.isArray(key)) {
+      let resOutput = {}
+      const keys = key
+      keys.forEach(key => {
+        let result = localStorage.getItem(key)
+        result = JSON.parse(result) || {}
+        resOutput = {
+          ...resOutput,
+          ...result
+        }
+      })
+      if (callback) callback(resOutput)
+    } else if (typeof key === 'string') {
+      if (callback) callback()
+      return JSON.parse(localStorage.getItem(key))
+    }
   }
 }
 
