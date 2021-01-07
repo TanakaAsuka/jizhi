@@ -9,7 +9,7 @@ import SearchInput from './components/SearchInput'
 import SiteLabel from './components/SiteLabel'
 import { saveBackground } from './utils'
 import Storager from './utils/storager'
-import { InlineAlert } from 'evergreen-ui'
+import { InlineAlert, toaster } from 'evergreen-ui'
 import { load } from './utils/jinrishici'
 import { HORIZONTAL, VERTICAL, WAVES, GOOGLE_SEARCH, DEFAULT_SHICI } from './constants/app-constants'
 
@@ -127,9 +127,23 @@ class App extends Component {
   handleAddrInput = (e) => { this.tempObj.addr = e.target.value }
   // 添加网址
   handleCustomBtn = () => {
-    this.state.customSite.push(this.tempObj.title)
-    Storager.set({ [this.tempObj.title]: this.tempObj.addr })
-    Storager.set({ siteArr: this.state.customSite })
+    Storager.get('siteArr', res => {
+      if (Array.isArray(res.siteArr) && res.siteArr.length > 6) {
+        toaster.warning('只能添加7个网址')
+      } else {
+        if (!this.tempObj.title) {
+          toaster.warning('标题不能为空')
+        } else if (this.state.customSite.indexOf(this.tempObj.title) !== -1) {
+          toaster.warning('标题重复')
+        } else if (!this.tempObj.addr) {
+          toaster.warning('地址不能为空')
+        } else {
+          this.state.customSite.push(this.tempObj.title)
+          Storager.set({ [this.tempObj.title]: this.tempObj.addr })
+          Storager.set({ siteArr: this.state.customSite })
+        }
+      }
+    })
   }
 
   handleCustomBtnDelete = () => {
